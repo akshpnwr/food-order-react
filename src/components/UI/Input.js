@@ -1,19 +1,10 @@
+import React from 'react';
 import classes from './Input.module.css';
-const Input = (props) => {
-  return (
-    <div className={classes.input}>
-      <label
-        htmlFor={props.input.id}
-        onClick={(e) => {
-          console.log(e.target);
-          console.log('Run');
-        }}
-      >
-        {props.label}
-      </label>
-      <input {...props.input} />
-    </div>
-  );
-};
+const Input = React.forwardRef((props, ref) => (
+  <div className={classes.input}>
+    <label htmlFor={props.input.id}>{props.label}</label>
+    <input {...props.input} ref={ref} />
+  </div>
+));
 
 export default Input;

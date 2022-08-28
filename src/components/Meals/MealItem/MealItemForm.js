@@ -11,11 +11,16 @@ const MealItemForm = (props) => {
     const enteredAmount = amountInputRef.current.value;
     const enteredAmountNumber = +enteredAmount;
 
+    console.log(enteredAmountNumber);
+
     if (
-      enteredAmount.trim.length === 0 ||
-      enteredAmountNumber < 1 ||
-      enteredAmountNumber > 5
+      !(
+        enteredAmount.trim.length === 0 ||
+        enteredAmountNumber < 1 ||
+        enteredAmountNumber > 5
+      )
     ) {
+      console.log('INSIDE IF');
       setAmountIsValid(false);
       return;
     }

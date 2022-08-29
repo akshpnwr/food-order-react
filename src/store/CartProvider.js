@@ -39,6 +39,61 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if (action.type === 'REMOVE') {
+    //Project Logic
+
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
+
+    const existingCartItem = state.items[existingCartItemIndex];
+
+    const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+
+    let updatedItems;
+
+    if (existingCartItem.amount === 1) {
+      updatedItems = state.items.filter(
+        (item) => item.id !== existingCartItem.id
+      );
+    } else {
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount - 1,
+      };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    }
+
+    //My Logic
+
+    // const existingCartItem = state.items.find((item) => item.id === action.id);
+
+    // const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+
+    // let updatedItems, updatedItem;
+
+    // updatedItems = state.items.filter((item) => item.id !== action.id);
+
+    // if (existingCartItem.amount > 1) {
+    //   const newAmount = existingCartItem.amount - 1;
+
+    //   updatedItem = {
+    //     ...existingCartItem,
+    //     amount: newAmount,
+    //     price: existingCartItem.price * newAmount,
+    //   };
+    //   updatedItems = [...updatedItems, updatedItem];
+    // } else {
+    //   updatedItems = [...updatedItems];
+    // }
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
+    };
+  }
+
   return defaultCartState;
 };
 

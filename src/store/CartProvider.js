@@ -6,7 +6,7 @@ const defaultCartState = {
   totalAmount: 0,
 };
 
-const cartReducer = (state, action) => {
+const cartReducer = async (state, action) => {
   if (action.type === 'ADD') {
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
@@ -19,7 +19,6 @@ const cartReducer = (state, action) => {
 
     let updatedItems;
 
-    console.log(existingCartItem, Boolean(existingCartItem));
     if (existingCartItem) {
       const updatedItem = {
         ...existingCartItem,
@@ -33,8 +32,6 @@ const cartReducer = (state, action) => {
       updatedItems = state.items.concat(action.item);
     }
 
-    // console.log(updatedItems, updatedTotalAmount);
-
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -42,8 +39,6 @@ const cartReducer = (state, action) => {
   }
 
   if (action.type === 'REMOVE') {
-    //Project Logic
-
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
     );
@@ -67,29 +62,6 @@ const cartReducer = (state, action) => {
       updatedItems[existingCartItemIndex] = updatedItem;
     }
 
-    //My Logic
-
-    // const existingCartItem = state.items.find((item) => item.id === action.id);
-
-    // const updatedTotalAmount = state.totalAmount - existingCartItem.price;
-
-    // let updatedItems, updatedItem;
-
-    // updatedItems = state.items.filter((item) => item.id !== action.id);
-
-    // if (existingCartItem.amount > 1) {
-    //   const newAmount = existingCartItem.amount - 1;
-
-    //   updatedItem = {
-    //     ...existingCartItem,
-    //     amount: newAmount,
-    //     price: existingCartItem.price * newAmount,
-    //   };
-    //   updatedItems = [...updatedItems, updatedItem];
-    // } else {
-    //   updatedItems = [...updatedItems];
-    // }
-
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -106,7 +78,6 @@ const CartProvider = (props) => {
   );
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: 'ADD', item });
-    // cartContext.items.push(item);
   };
 
   const removeItemFromCartHandler = (id) => {

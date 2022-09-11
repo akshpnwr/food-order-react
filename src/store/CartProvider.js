@@ -6,7 +6,7 @@ const defaultCartState = {
   totalAmount: 0,
 };
 
-const cartReducer = async (state, action) => {
+const cartReducer = (state, action) => {
   if (action.type === 'ADD') {
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;

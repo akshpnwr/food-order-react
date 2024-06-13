@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
-    measurementId: process.env.measurementId
+    apiKey: "AIzaSyBIV59nrrBWiyEqQQbkEU4ety9jqP_hZqM",
+    authDomain: "food-order-d302c.firebaseapp.com",
+    projectId: "food-order-d302c",
+    storageBucket: "food-order-d302c.appspot.com",
+    messagingSenderId: "103968919080",
+    appId: "1:103968919080:web:2c3d957e0c524946522f1d",
+    measurementId: "G-H5PKYZ5DT1"
 };
 
 // Initialize Firebase

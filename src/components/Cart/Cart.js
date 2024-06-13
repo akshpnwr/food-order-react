@@ -4,6 +4,8 @@ import Modal from '../UI/Modal';
 import classes from './Cart.module.css';
 import CartItem from './CartItem';
 import Checkout from './Checkout';
+import { database } from '../../firebase';
+import { ref, set } from 'firebase/database';
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
@@ -25,16 +27,11 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    await fetch(
-      'https://react-http-953ed-default-rtdb.firebaseio.com/orders.json',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ orderedItems: cartCtx.items, user: userData }),
-      }
-    );
+    const newOrderRef = ref(database, 'orders/' + Date.now());
+    await set(newOrderRef, {
+      orderedItems: cartCtx.items,
+      user: userData
+    });
 
     setIsSubmitting(false);
     setDidSubmit(true);
